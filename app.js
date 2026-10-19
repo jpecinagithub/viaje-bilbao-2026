@@ -25,7 +25,13 @@
       copied: "Link copied",
       meta: "2:35 min · 1080p · MP4",
       hint: "Best experienced with sound on.",
-      author: "Developed by"
+      author: "Developed by",
+      extrasTitle: "Bonus content",
+      extrasSub: "Two short clips from the trip.",
+      extras: [
+        { caption: "Toast at the winery", file: "extra-01.mp4", dl: "Bilbao2026-extra-brindis.mp4" },
+        { caption: "In the garden", file: "extra-02.mp4", dl: "Bilbao2026-extra-jardin.mp4" }
+      ]
     },
     es: {
       tagline: "Un viaje para recordar",
@@ -36,7 +42,13 @@
       copied: "Enlace copiado",
       meta: "2:35 min · 1080p · MP4",
       hint: "Se disfruta mejor con sonido.",
-      author: "Desarrollado por"
+      author: "Desarrollado por",
+      extrasTitle: "Contenido extra",
+      extrasSub: "Dos clips cortos del viaje.",
+      extras: [
+        { caption: "Brindis en la bodega", file: "extra-01.mp4", dl: "Bilbao2026-extra-brindis.mp4" },
+        { caption: "En el jardín", file: "extra-02.mp4", dl: "Bilbao2026-extra-jardin.mp4" }
+      ]
     }
   };
 
@@ -72,6 +84,11 @@
     "      </div>" +
     "    </div>" +
     "  </section>" +
+    '  <section class="extras" id="extras">' +
+    '    <h2 class="extras-title" id="extrasTitle"></h2>' +
+    '    <p class="extras-sub" id="extrasSub"></p>' +
+    '    <div class="extras-grid" id="extrasGrid"></div>' +
+    "  </section>" +
     '  <footer><span id="author"></span>&nbsp;<a href="mailto:jpecina@gmail.com">jpecina@gmail.com</a></footer>' +
     "</main>";
 
@@ -91,6 +108,45 @@
     document.getElementById("btnFull").textContent = t.fullscreen;
     document.getElementById("langToggle").textContent = lang === "en" ? "ES" : "EN";
     bigPlay.setAttribute("aria-label", t.play);
+    renderExtras(t);
+  }
+
+  function renderExtras(t) {
+    document.getElementById("extrasTitle").textContent = t.extrasTitle;
+    document.getElementById("extrasSub").textContent = t.extrasSub;
+    var grid = document.getElementById("extrasGrid");
+    var html = "";
+    t.extras.forEach(function (x, n) {
+      var src = "video/extras/" + x.file;
+      var poster = "video/extras/" + x.file.replace(/\.mp4$/, ".jpg");
+      html +=
+        '<div class="extra-card">' +
+        '  <div class="mini-player" id="xp' + n + '">' +
+        '    <video id="xv' + n + '" src="' + src + '" poster="' + poster + '"' +
+        '           preload="metadata" playsinline controls></video>' +
+        '    <button class="big-play" data-v="xv' + n + '" data-p="xp' + n + '" aria-label="' + t.play + '">' +
+        '      <svg viewBox="0 0 64 64" width="48" height="48" aria-hidden="true">' +
+        '        <circle cx="32" cy="32" r="30" fill="rgba(11,14,20,.55)" stroke="#e8b34b" stroke-width="2.5"/>' +
+        '        <path d="M26 20v24l18-12z" fill="#e8b34b"/>' +
+        "      </svg>" +
+        "    </button>" +
+        "  </div>" +
+        '  <p class="extra-cap">' + x.caption + "</p>" +
+        '  <a class="mini-dl" href="' + src + '" download="' + x.dl + '">↓ ' + t.download + "</a>" +
+        "</div>";
+    });
+    grid.innerHTML = html;
+    Array.prototype.forEach.call(grid.querySelectorAll(".big-play"), function (btn) {
+      btn.addEventListener("click", function () {
+        document.getElementById(btn.getAttribute("data-v")).play();
+      });
+    });
+    t.extras.forEach(function (x, n) {
+      var v = document.getElementById("xv" + n);
+      var p = document.getElementById("xp" + n);
+      v.addEventListener("play", function () { p.classList.add("playing"); });
+      v.addEventListener("pause", function () { p.classList.remove("playing"); });
+    });
   }
 
   document.getElementById("langToggle").addEventListener("click", function () {
