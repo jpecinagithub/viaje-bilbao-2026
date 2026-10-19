@@ -27,10 +27,9 @@
       hint: "Best experienced with sound on.",
       author: "Developed by",
       extrasTitle: "Bonus content",
-      extrasSub: "Two short clips from the trip.",
+      extrasSub: "A short clip from the trip.",
       extras: [
-        { caption: "Toast at the winery", file: "extra-01.mp4", dl: "Bilbao2026-extra-brindis.mp4" },
-        { caption: "In the garden", file: "extra-02.mp4", dl: "Bilbao2026-extra-jardin.mp4" }
+        { caption: "The farewell", file: "extra-02.mp4", dl: "Bilbao2026-extra-despedida.mp4" }
       ]
     },
     es: {
@@ -44,10 +43,9 @@
       hint: "Se disfruta mejor con sonido.",
       author: "Desarrollado por",
       extrasTitle: "Contenido extra",
-      extrasSub: "Dos clips cortos del viaje.",
+      extrasSub: "Un clip corto del viaje.",
       extras: [
-        { caption: "Brindis en la bodega", file: "extra-01.mp4", dl: "Bilbao2026-extra-brindis.mp4" },
-        { caption: "En el jardín", file: "extra-02.mp4", dl: "Bilbao2026-extra-jardin.mp4" }
+        { caption: "La despedida", file: "extra-02.mp4", dl: "Bilbao2026-extra-despedida.mp4" }
       ]
     }
   };
